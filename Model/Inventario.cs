@@ -29,6 +29,7 @@ namespace Model
         public double Tiempo { get; set; }
         public string DetieneOperacion { get; set; }
         public string Campo { get; set; }
-        public string Bodega { get; set; }
+        public int BodegaId { get; set; }
+        public Bodega Bodega { get; set; }
     }
 }

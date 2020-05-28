@@ -11,7 +11,7 @@ namespace Application.CentrosLogisticos
     {
         public class Command : IRequest
         {
-            public Guid Id { get; set; }
+            public int Id { get; set; }
             public string Nombre { get; set; }
             public string Codigo { get; set; }
             public double Latitud { get; set; }

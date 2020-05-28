@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
+
 namespace Model
 {
     public class CentroLogistico
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Nombre { get; set; }
         public string Codigo { get; set; }
         public double Latitud { get; set; }
@@ -18,5 +20,6 @@ namespace Model
         public string CuartosQuimicos { get; set; }
         public double AreaCQuimicos { get; set; }
         public string CentrosProdAtiendad { get; set; }
+        public List<CentroRuta> CentroRutas { get; set; }
     }
 }
