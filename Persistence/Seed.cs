@@ -54,6 +54,100 @@ namespace Persistence
                 context.CentroLogisticos.AddRange(cenLogisticos);
                 context.SaveChanges();
             }
+
+            if (!context.Inventarios.Any())
+            {
+                var inventarios = new List<Inventario>
+                {
+                    new Inventario
+                    {
+
+                        CodigoMaterial = "Código",
+                        NumPedido = "Número pedido",
+                        Data = "Datos",
+                        Descripcion = "Descripción",
+                        Proveedor = "Proveedor",
+                        ProveedorCentroSuministrador = "Centro suministrador",
+                        UbicacionProveedor = "Ubicación Prov",
+                        FechaFacturacion = new DateTime(2020, 12, 25),
+                        CantidadUm = 10,
+                        UnidadMedida = "Unidad",
+                        ImporteMl = "Importe ML",
+                        Moneda = "COP",
+                        SafetyStock = 100,
+                        Largo = 10,
+                        Ancho = 30,
+                        Alto = 20,
+                        Peso = 15,
+                        TipoTransporte = "Especializado",
+                        TipoCargue = "Montacarga",
+                        ModoAlmacenamiento = "Cuarto frio",
+                        Tipo = "Categoria",
+                        Tiempo = 10,
+                        DetieneOperacion = "No",
+                        Campo = "Código campo",
+                        BodegaId = 33,
+                        Bodega = new Bodega {
+                                BodegaId = 33,
+                                Nombre = "Bodega 33",
+                                Codigo = 321,
+                                Latitud = 74.553,
+                                Longitud = 79.4343,
+                                Dependencia  = "Vicepresidencia",
+                                Area = 10,
+                                Tipo = "Cuarto Frio",
+                                Cprodatiende = "Codigo"
+                        }
+                    }
+
+                };
+
+                context.Inventarios.AddRange(inventarios);
+                context.SaveChanges();
+
+            }
+
+            if (!context.Bodegas.Any())
+            {
+
+                var bodegas = new List<Bodega>{
+
+                    new Bodega{
+                        Nombre = "Bodega1",
+                        Codigo = 321,
+                        Latitud = 74.553,
+                        Longitud = 79.4343,
+                        Dependencia  = "Vicepresidencia",
+                        Area = 10,
+                        Tipo = "Patio",
+                        Cprodatiende = "Codigo"
+                    },
+                    new Bodega{
+                        Nombre = "Bodega1",
+                        Codigo = 321,
+                        Latitud = 74.553,
+                        Longitud = 79.4343,
+                        Dependencia  = "Vicepresidencia",
+                        Area = 10,
+                        Tipo = "Patio",
+                        Cprodatiende = "Codigo"
+                    },
+                    new Bodega{
+                        Nombre = "Bodega1",
+                        Codigo = 321,
+                        Latitud = 74.553,
+                        Longitud = 79.4343,
+                        Dependencia  = "Vicepresidencia",
+                        Area = 10,
+                        Tipo = "Patio",
+                        Cprodatiende = "Codigo"
+                    }
+
+                };
+
+                context.Bodegas.AddRange(bodegas);
+                context.SaveChanges();
+            }
         }
     }
 }

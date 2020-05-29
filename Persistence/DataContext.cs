@@ -32,6 +32,41 @@ namespace Persistence
                     Tipo= "Value 101", Tiempo= 7, DetieneOperacion= "Value 101", Campo= "Value 101", BodegaId = 12}
                 );
 
+            builder.Entity<Bodega>().HasData(
+                new Bodega{
+                        BodegaId = 1,
+                        Nombre = "Bodega1",
+                        Codigo = 321,
+                        Latitud = 74.553,
+                        Longitud = 79.4343,
+                        Dependencia  = "Vicepresidencia",
+                        Area = 10,
+                        Tipo = "Patio",
+                        Cprodatiende = "Codigo"
+                    },
+                    new Bodega{
+                        BodegaId = 2,
+                        Nombre = "Bodega2",
+                        Codigo = 321,
+                        Latitud = 74.553,
+                        Longitud = 79.4343,
+                        Dependencia  = "Vicepresidencia",
+                        Area = 10,
+                        Tipo = "Patio",
+                        Cprodatiende = "Codigo"
+                    },
+                    new Bodega{
+                        BodegaId = 3,
+                        Nombre = "Bodega3",
+                        Codigo = 321,
+                        Latitud = 74.553,
+                        Longitud = 79.4343,
+                        Dependencia  = "Vicepresidencia",
+                        Area = 10,
+                        Tipo = "Patio",
+                        Cprodatiende = "Codigo"}
+            );
+
             //CentroLogisticos - Rutas
 
             builder.Entity<CentroRuta>().HasKey(t => new {t.RutaId, t.CentroLogisticoId});
