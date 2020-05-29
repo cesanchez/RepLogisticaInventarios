@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Application.Inventarios;
 using Model;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
@@ -13,43 +12,35 @@ namespace API.Controllers
     [ApiController]
     public class InventarioController : ControllerBase
     {
-        private readonly DataContext _context;
-        public InventarioController(DataContext context)
+        private readonly IMediator _mediator;
+        public InventarioController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
-        // GET api/values
+
         [HttpGet]
-          public async Task<ActionResult<IEnumerable<Inventario>>> Get()
+        public async Task<ActionResult<List<Inventario>>> List()
         {
-            var values = await _context.Inventarios.ToListAsync();
-            return Ok(values);
+            return await _mediator.Send(new List.Query());
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Inventario>> Get(int id)
+/*         [HttpGet("{id}")]
+        public async Task<ActionResult<Inventario>> Details(Guid id)
         {
-            var value = await _context.Inventarios.FindAsync(id);
-            return Ok(value);
+            return await _mediator.Send(new Details.Query{Id = id});
         }
 
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Unit>> Create(Create.Command command)
         {
+            return await _mediator.Send(command);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command)
         {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+            command.Id = id;
+            return await _mediator.Send(command);
+        } */
     }
 }
