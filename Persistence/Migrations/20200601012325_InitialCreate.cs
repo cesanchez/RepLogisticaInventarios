@@ -13,7 +13,14 @@ namespace Persistence.Migrations
                 {
                     BodegaId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Nombre = table.Column<string>(nullable: true)
+                    Nombre = table.Column<string>(nullable: true),
+                    Codigo = table.Column<double>(nullable: false),
+                    Latitud = table.Column<double>(nullable: false),
+                    Longitud = table.Column<double>(nullable: false),
+                    Dependencia = table.Column<string>(nullable: true),
+                    Area = table.Column<double>(nullable: false),
+                    Tipo = table.Column<string>(nullable: true),
+                    Cprodatiende = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,16 +80,16 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rutas",
+                name: "Usuarios",
                 columns: table => new
                 {
-                    RutaId = table.Column<int>(nullable: false)
+                    UsuarioId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rutas", x => x.RutaId);
+                    table.PrimaryKey("PK_Usuarios", x => x.UsuarioId);
                 });
 
             migrationBuilder.CreateTable(
@@ -125,6 +132,47 @@ namespace Persistence.Migrations
                         column: x => x.BodegaId,
                         principalTable: "Bodegas",
                         principalColumn: "BodegaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Escenarios",
+                columns: table => new
+                {
+                    EscenarioId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nombre = table.Column<string>(nullable: true),
+                    FechaCreacion = table.Column<DateTime>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Escenarios", x => x.EscenarioId);
+                    table.ForeignKey(
+                        name: "FK_Escenarios_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuarios",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rutas",
+                columns: table => new
+                {
+                    RutaId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nombre = table.Column<string>(nullable: true),
+                    EscenarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rutas", x => x.RutaId);
+                    table.ForeignKey(
+                        name: "FK_Rutas_Escenarios_EscenarioId",
+                        column: x => x.EscenarioId,
+                        principalTable: "Escenarios",
+                        principalColumn: "EscenarioId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -226,13 +274,58 @@ namespace Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "Bodegas",
-                columns: new[] { "BodegaId", "Nombre" },
-                values: new object[] { 12, "MiBodega12" });
+                columns: new[] { "BodegaId", "Area", "Codigo", "Cprodatiende", "Dependencia", "Latitud", "Longitud", "Nombre", "Tipo" },
+                values: new object[] { 33, 10.0, 321.0, "Codigo", "Vicepresidencia", 74.552999999999997, 79.434299999999993, "Bodega 33", "Cuarto Frio" });
+
+            migrationBuilder.InsertData(
+                table: "Campos",
+                columns: new[] { "CampoId", "Nombre" },
+                values: new object[] { 1, "Campo1" });
+
+            migrationBuilder.InsertData(
+                table: "Campos",
+                columns: new[] { "CampoId", "Nombre" },
+                values: new object[] { 2, "Campo2" });
+
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "UsuarioId", "Nombre" },
+                values: new object[] { 1122, "Usuario Principal" });
+
+            migrationBuilder.InsertData(
+                table: "Escenarios",
+                columns: new[] { "EscenarioId", "FechaCreacion", "Nombre", "UsuarioId" },
+                values: new object[] { 1, new DateTime(2020, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Red Actual", 1122 });
 
             migrationBuilder.InsertData(
                 table: "Inventarios",
                 columns: new[] { "Id", "Alto", "Ancho", "BodegaId", "Campo", "CantidadUm", "CodigoMaterial", "Data", "Descripcion", "DetieneOperacion", "FechaFacturacion", "ImporteMl", "Largo", "ModoAlmacenamiento", "Moneda", "NumPedido", "Peso", "Proveedor", "ProveedorCentroSuministrador", "SafetyStock", "Tiempo", "Tipo", "TipoCargue", "TipoTransporte", "UbicacionProveedor", "UnidadMedida" },
-                values: new object[] { 1, 7.0, 7.0, 12, "Value 101", 7.0, "Value 101", "Value 101", "Value 101", "Value 101", new DateTime(2020, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Value 101", 7.0, "Value 101", "Value 101", "Value 101", 7.0, "Value 101", "Value 101", 7.0, 7.0, "Value 101", "Value 101", "Value 101", "Value 101", "Value 101" });
+                values: new object[] { 2, 20.0, 30.0, 33, "Código campo", 10.0, "Código", "Datos", "Descripción", "No", new DateTime(2020, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Importe ML", 10.0, "Cuarto frio", "COP", "Número pedido", 15.0, "Proveedor", "Centro suministrador", 100.0, 10.0, "Categoria", "Montacarga", "Especializado", "Ubicación Prov", "Unidad" });
+
+            migrationBuilder.InsertData(
+                table: "Inventarios",
+                columns: new[] { "Id", "Alto", "Ancho", "BodegaId", "Campo", "CantidadUm", "CodigoMaterial", "Data", "Descripcion", "DetieneOperacion", "FechaFacturacion", "ImporteMl", "Largo", "ModoAlmacenamiento", "Moneda", "NumPedido", "Peso", "Proveedor", "ProveedorCentroSuministrador", "SafetyStock", "Tiempo", "Tipo", "TipoCargue", "TipoTransporte", "UbicacionProveedor", "UnidadMedida" },
+                values: new object[] { 1, 20.0, 30.0, 33, "Código campo", 10.0, "Código", "Datos", "Descripción", "No", new DateTime(2020, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Importe ML", 10.0, "Cuarto frio", "COP", "Número pedido", 15.0, "Proveedor", "Centro suministrador", 100.0, 10.0, "Categoria", "Montacarga", "Especializado", "Ubicación Prov", "Unidad" });
+
+            migrationBuilder.InsertData(
+                table: "Rutas",
+                columns: new[] { "RutaId", "EscenarioId", "Nombre" },
+                values: new object[] { 7, 1, "Blanco-y-Negro7" });
+
+            migrationBuilder.InsertData(
+                table: "BodegaRuta",
+                columns: new[] { "RutaId", "BodegaId" },
+                values: new object[] { 7, 33 });
+
+            migrationBuilder.InsertData(
+                table: "CampoRuta",
+                columns: new[] { "RutaId", "CampoId" },
+                values: new object[] { 7, 1 });
+
+            migrationBuilder.InsertData(
+                table: "CampoRuta",
+                columns: new[] { "RutaId", "CampoId" },
+                values: new object[] { 7, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BodegaRuta_BodegaId",
@@ -250,6 +343,11 @@ namespace Persistence.Migrations
                 column: "CentroLogisticoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Escenarios_UsuarioId",
+                table: "Escenarios",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HubRuta_HubId",
                 table: "HubRuta",
                 column: "HubId");
@@ -258,6 +356,12 @@ namespace Persistence.Migrations
                 name: "IX_Inventarios_BodegaId",
                 table: "Inventarios",
                 column: "BodegaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rutas_EscenarioId",
+                table: "Rutas",
+                column: "EscenarioId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -291,6 +395,12 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Bodegas");
+
+            migrationBuilder.DropTable(
+                name: "Escenarios");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
         }
     }
 }

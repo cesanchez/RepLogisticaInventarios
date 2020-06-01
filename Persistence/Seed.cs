@@ -9,6 +9,7 @@ namespace Persistence
     {
         public static void SeedData(DataContext context)
         {
+
             if (!context.CentroLogisticos.Any())
             {
                 var cenLogisticos = new List<CentroLogistico>
@@ -146,6 +147,33 @@ namespace Persistence
                 };
 
                 context.Bodegas.AddRange(bodegas);
+                context.SaveChanges();
+            }
+
+            if (!context.Usuarios.Any())
+            {
+                var usuarios = new List<Usuario>{
+                    new Usuario{
+                        UsuarioId = 112233,
+                        Nombre = "Usuario Principal",
+                        Escenarios = new List<Escenario>{
+                            new Escenario{
+                                EscenarioId = 1,
+                                Nombre = "Red Actual",
+                                FechaCreacion =  new DateTime(2020, 12, 25),
+                                Ruta = new Ruta{
+                                    RutaId = 1,
+                                    Nombre = "BancoYNegro7",
+                                    
+
+                                }
+                            }
+                        }
+                    }
+
+                };
+
+                context.Usuarios.AddRange(usuarios);
                 context.SaveChanges();
             }
         }

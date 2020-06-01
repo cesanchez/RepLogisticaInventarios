@@ -53,12 +53,15 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            BodegaId = 12,
-                            Area = 0.0,
-                            Codigo = 0.0,
-                            Latitud = 0.0,
-                            Longitud = 0.0,
-                            Nombre = "MiBodega12"
+                            BodegaId = 33,
+                            Area = 10.0,
+                            Codigo = 321.0,
+                            Cprodatiende = "Codigo",
+                            Dependencia = "Vicepresidencia",
+                            Latitud = 74.552999999999997,
+                            Longitud = 79.434299999999993,
+                            Nombre = "Bodega 33",
+                            Tipo = "Cuarto Frio"
                         });
                 });
 
@@ -75,6 +78,13 @@ namespace Persistence.Migrations
                     b.HasIndex("BodegaId");
 
                     b.ToTable("BodegaRuta");
+
+                    b.HasData(
+                        new
+                        {
+                            RutaId = 7,
+                            BodegaId = 33
+                        });
                 });
 
             modelBuilder.Entity("Model.Campo", b =>
@@ -89,6 +99,18 @@ namespace Persistence.Migrations
                     b.HasKey("CampoId");
 
                     b.ToTable("Campos");
+
+                    b.HasData(
+                        new
+                        {
+                            CampoId = 1,
+                            Nombre = "Campo1"
+                        },
+                        new
+                        {
+                            CampoId = 2,
+                            Nombre = "Campo2"
+                        });
                 });
 
             modelBuilder.Entity("Model.CampoRuta", b =>
@@ -104,6 +126,18 @@ namespace Persistence.Migrations
                     b.HasIndex("CampoId");
 
                     b.ToTable("CampoRuta");
+
+                    b.HasData(
+                        new
+                        {
+                            RutaId = 7,
+                            CampoId = 1
+                        },
+                        new
+                        {
+                            RutaId = 7,
+                            CampoId = 2
+                        });
                 });
 
             modelBuilder.Entity("Model.CentroLogistico", b =>
@@ -172,6 +206,37 @@ namespace Persistence.Migrations
                     b.HasIndex("CentroLogisticoId");
 
                     b.ToTable("CentroRuta");
+                });
+
+            modelBuilder.Entity("Model.Escenario", b =>
+                {
+                    b.Property<int>("EscenarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EscenarioId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Escenarios");
+
+                    b.HasData(
+                        new
+                        {
+                            EscenarioId = 1,
+                            FechaCreacion = new DateTime(2020, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nombre = "Red Actual",
+                            UsuarioId = 1122
+                        });
                 });
 
             modelBuilder.Entity("Model.Hub", b =>
@@ -294,31 +359,60 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Alto = 7.0,
-                            Ancho = 7.0,
-                            BodegaId = 12,
-                            Campo = "Value 101",
-                            CantidadUm = 7.0,
-                            CodigoMaterial = "Value 101",
-                            Data = "Value 101",
-                            Descripcion = "Value 101",
-                            DetieneOperacion = "Value 101",
+                            Alto = 20.0,
+                            Ancho = 30.0,
+                            BodegaId = 33,
+                            Campo = "Código campo",
+                            CantidadUm = 10.0,
+                            CodigoMaterial = "Código",
+                            Data = "Datos",
+                            Descripcion = "Descripción",
+                            DetieneOperacion = "No",
                             FechaFacturacion = new DateTime(2020, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImporteMl = "Value 101",
-                            Largo = 7.0,
-                            ModoAlmacenamiento = "Value 101",
-                            Moneda = "Value 101",
-                            NumPedido = "Value 101",
-                            Peso = 7.0,
-                            Proveedor = "Value 101",
-                            ProveedorCentroSuministrador = "Value 101",
-                            SafetyStock = 7.0,
-                            Tiempo = 7.0,
-                            Tipo = "Value 101",
-                            TipoCargue = "Value 101",
-                            TipoTransporte = "Value 101",
-                            UbicacionProveedor = "Value 101",
-                            UnidadMedida = "Value 101"
+                            ImporteMl = "Importe ML",
+                            Largo = 10.0,
+                            ModoAlmacenamiento = "Cuarto frio",
+                            Moneda = "COP",
+                            NumPedido = "Número pedido",
+                            Peso = 15.0,
+                            Proveedor = "Proveedor",
+                            ProveedorCentroSuministrador = "Centro suministrador",
+                            SafetyStock = 100.0,
+                            Tiempo = 10.0,
+                            Tipo = "Categoria",
+                            TipoCargue = "Montacarga",
+                            TipoTransporte = "Especializado",
+                            UbicacionProveedor = "Ubicación Prov",
+                            UnidadMedida = "Unidad"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Alto = 20.0,
+                            Ancho = 30.0,
+                            BodegaId = 33,
+                            Campo = "Código campo",
+                            CantidadUm = 10.0,
+                            CodigoMaterial = "Código",
+                            Data = "Datos",
+                            Descripcion = "Descripción",
+                            DetieneOperacion = "No",
+                            FechaFacturacion = new DateTime(2020, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImporteMl = "Importe ML",
+                            Largo = 10.0,
+                            ModoAlmacenamiento = "Cuarto frio",
+                            Moneda = "COP",
+                            NumPedido = "Número pedido",
+                            Peso = 15.0,
+                            Proveedor = "Proveedor",
+                            ProveedorCentroSuministrador = "Centro suministrador",
+                            SafetyStock = 100.0,
+                            Tiempo = 10.0,
+                            Tipo = "Categoria",
+                            TipoCargue = "Montacarga",
+                            TipoTransporte = "Especializado",
+                            UbicacionProveedor = "Ubicación Prov",
+                            UnidadMedida = "Unidad"
                         });
                 });
 
@@ -328,12 +422,47 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("EscenarioId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nombre")
                         .HasColumnType("TEXT");
 
                     b.HasKey("RutaId");
 
+                    b.HasIndex("EscenarioId")
+                        .IsUnique();
+
                     b.ToTable("Rutas");
+
+                    b.HasData(
+                        new
+                        {
+                            RutaId = 7,
+                            EscenarioId = 1,
+                            Nombre = "Blanco-y-Negro7"
+                        });
+                });
+
+            modelBuilder.Entity("Model.Usuario", b =>
+                {
+                    b.Property<int>("UsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UsuarioId");
+
+                    b.ToTable("Usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            UsuarioId = 1122,
+                            Nombre = "Usuario Principal"
+                        });
                 });
 
             modelBuilder.Entity("Model.BodegaRuta", b =>
@@ -381,6 +510,15 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Model.Escenario", b =>
+                {
+                    b.HasOne("Model.Usuario", "Usuario")
+                        .WithMany("Escenarios")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Model.HubRuta", b =>
                 {
                     b.HasOne("Model.Hub", "Hub")
@@ -401,6 +539,15 @@ namespace Persistence.Migrations
                     b.HasOne("Model.Bodega", "Bodega")
                         .WithMany("Inventarios")
                         .HasForeignKey("BodegaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Model.Ruta", b =>
+                {
+                    b.HasOne("Model.Escenario", "Escenario")
+                        .WithOne("Ruta")
+                        .HasForeignKey("Model.Ruta", "EscenarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
